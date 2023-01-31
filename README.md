@@ -16,7 +16,7 @@ cd vscode-server-deploy-script
 - Authenticate
     > You'll be provided a device code and URL to authenticate your GitHub account into the secure tunneling service.
 
-    - First time launching the VS Code Server on this remote machine
+    - First time launching the VS Code Server on this remote machine use the script
     ```
     ~/vscode-server-deploy-script$ ./run-vscode-server.sh your-tunnel-name
 
