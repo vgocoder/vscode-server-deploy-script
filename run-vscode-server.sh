@@ -13,7 +13,7 @@ if [ -z "$1" ]; then
 fi
 
 # pid
-PIDS=`ps -ef | grep "{$vscodeCliFile} tunnel" | awk '{print $2}'`
+PIDS=`ps -ef | grep "{$vscodeCliFile} tunnel" | grep -v grep | awk '{print $2}'`
 for pid in $PIDS
 do
   kill -9 $pid
