@@ -45,7 +45,7 @@ if [ ! -f "$vscodeCliPath/$vscodeCliFile" ]; then
 fi
 
 # prune tunnel
-nohup $vscodeCliPath/$vscodeCliFile tunnel prune 2>&1 | while read line; do log "$line" >>$vscodeLogFile; done &
+# nohup $vscodeCliPath/$vscodeCliFile tunnel prune 2>&1 | while read line; do log "$line" >>$vscodeLogFile; done &
 
 # check tunnel name
 if [ -z "$1" ]; then
