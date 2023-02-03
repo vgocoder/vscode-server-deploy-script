@@ -57,4 +57,4 @@ fi
 nohup $vscodeCliPath/$vscodeCliFile tunnel --name $tunnelName --accept-server-license-terms 2>&1 | while read line; do log "$line" >>$vscodeLogFile; done &
 
 # logs tail
-tail -f $vscodeLogFile
+# tail -f $vscodeLogFile
