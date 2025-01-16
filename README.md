@@ -1,57 +1,154 @@
-# Visual Studio Code Server Deploy Script Using the 'code' CLI
+这是整合后的完整版 README.md：
 
-## Developing with Visual Studio Code Remote Tunnels 
+```markdown
+# VS Code Remote Tunnel Manager
 
-> You may create a secure tunnel through the 'code' CLI with this script quickly
+A shell script to manage VS Code remote tunnels for secure remote development. This tool provides an easy way to deploy, start, stop, and manage VS Code tunnels with automatic CLI installation and updates.
 
-### Remote Usage
+## Features
 
-- Use the Script
-```
+- Quick tunnel creation with custom or random names
+- Automatic download and installation of the latest VS Code CLI
+- Secure authentication through GitHub
+- Process management (start/stop)
+- Detailed logging system
+- Support for both curl and wget
+- Force update capability
+- Simple deployment process
+
+## Prerequisites
+
+- Linux/Unix-based operating system
+- sudo privileges
+- Either curl or wget installed
+- Internet connection
+- GitHub account for authentication
+
+## Installation
+
+1. Clone the repository:
+```bash
 git clone https://github.com/vgocoder/vscode-server-deploy-script.git
 cd vscode-server-deploy-script
-./run-vscode-server.sh your-tunnel-name
 ```
 
-- Authenticate
-    > You'll be provided a device code and URL to authenticate your GitHub account into the secure tunneling service.
+2. Make the script executable:
+```bash
+chmod +x tunnel-manager.sh
+```
 
-    - First time launching the VS Code Server on this remote machine use the script
-    ```
-    ~/vscode-server-deploy-script$ ./run-vscode-server.sh your-tunnel-name
+## Usage
 
-    *
-    * Visual Studio Code Server
-    *
-    * By using the software, you agree to
-    * the Visual Studio Code Server License Terms (https://aka.ms/vscode-server-license) and
-    * the Microsoft Privacy Statement (https://privacy.microsoft.com/en-US/privacystatement).
-    *
-    To grant access to the server, please log into https://github.com/login/device and use code XXXX-XXXX
-    [2023-01-31 22:24:41] info Creating tunnel with the name: your-tunnel-name
+### Starting a Tunnel
 
-    Open this link in your browser https://insiders.vscode.dev/tunnel/your-tunnel-name/home/ubuntu/vscode-server-deploy-script
-    ```
+With custom name:
+```bash
+./tunnel-manager.sh start your-tunnel-name
+```
 
-    - After authenticating 
-    ```
-    ~/vscode-server-deploy-script$ ./run-vscode-server.sh your-tunnel-name
+With random name:
+```bash
+./tunnel-manager.sh start
+```
 
-    *
-    * Visual Studio Code Server
-    *
-    * By using the software, you agree to
-    * the Visual Studio Code Server License Terms (https://aka.ms/vscode-server-license) and
-    * the Microsoft Privacy Statement (https://privacy.microsoft.com/en-US/privacystatement).
-    *
-    [2023-01-31 22:55:53] info Creating tunnel with the name: your-tunnel-name
+Force update and start:
+```bash
+./tunnel-manager.sh start your-tunnel-name --update
+```
 
-    Open this link in your browser https://insiders.vscode.dev/tunnel/your-tunnel-name/home/ubuntu/vscode-server
-    ```
+### Stopping Tunnels
+```bash
+./tunnel-manager.sh stop
+```
 
-### Client Usage
+### Authentication Process
 
-After authenticating and providing a machine name, you then have a couple options for connecting to your remote machine:
+1. First-time Launch:
+   - Run the script with your desired tunnel name
+   - You'll receive a device code and GitHub authentication URL
+   - Visit https://github.com/login/device and enter the code
+   - Example output:
+```
+* Visual Studio Code Server
+*
+* By using the software, you agree to
+* the Visual Studio Code Server License Terms (https://aka.ms/vscode-server-license) and
+* the Microsoft Privacy Statement (https://privacy.microsoft.com/en-US/privacystatement).
+*
+To grant access to the server, please log into https://github.com/login/device and use code XXXX-XXXX
+```
 
-- Select the vscode.dev link the CLI prints that's connected to your server instance.
-- Open vscode.dev or a desktop instance of VS Code directly, and run the command: Remote - Tunnels: Connect to remote... (you may use F1 to open the Command Palette to find this command).
+2. Subsequent Launches:
+   - The script will automatically create the tunnel
+   - You'll receive a direct VS Code connection link
+
+### Client Connection Methods
+
+After authentication, connect to your remote machine using either:
+1. Click the vscode.dev link provided in the CLI output
+2. Use VS Code desktop or vscode.dev:
+   - Press F1 to open Command Palette
+   - Run "Remote - Tunnels: Connect to remote..."
+   - Select your tunnel name
+
+## Configuration
+
+Default settings (customizable in the script):
+```bash
+vscodeCliBinFile="vscode_cli_alpine_x64_cli.tar.gz"
+vscodeCliFile="code"
+vscodeCliPath="/usr/bin"
+vscodeLogFile="vscode-server.log"
+```
+
+## Logging
+
+All operations are logged to `vscode-server.log`, including:
+- Authentication events
+- Tunnel status changes
+- Installation progress
+- Error messages
+
+## Troubleshooting
+
+### Common Issues
+
+1. Permission denied
+```bash
+sudo chmod +x tunnel-manager.sh
+```
+
+2. Download fails
+- Check internet connection
+- Verify download URL
+- Ensure curl/wget is installed
+
+3. Authentication fails
+- Verify GitHub account access
+- Check the device code validity
+- Ensure stable internet connection
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit Pull Requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+If you encounter issues:
+1. Check the troubleshooting section
+2. Review the log file
+3. Open an issue in the repository
+
+## Changelog
+
+### v0.1.0 (2025-01-16)
+- Added start/stop functionality
+- Implemented auto-download and installation
+- Added logging system
+- Improved authentication handling
+- Added force update option
+```
