@@ -1,6 +1,3 @@
-这是整合后的完整版 README.md：
-
-```markdown
 # VS Code Remote Tunnel Manager
 
 A shell script to manage VS Code remote tunnels for secure remote development. This tool provides an easy way to deploy, start, stop, and manage VS Code tunnels with automatic CLI installation and updates.
